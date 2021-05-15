@@ -23,6 +23,19 @@ public class MongoConnect {
         collection.insert(newUser);
     }
 
+    boolean findUser(User user){
+        DBObject newUser = new BasicDBObject("_id", user.getId())
+                .append("name", user.getName())
+                .append("surname", user.getSurname())
+                .append("email", user.getEmail())
+                .append("password", user.getPassword());
+
+        if(database.getCollection("users").find(newUser)==null){
+            return true;
+        }
+        return false;
+    }
+
     public static final DBObject getUser(User user){
         return new BasicDBObject("_id", user.getId())
                     .append("name", user.getName())
